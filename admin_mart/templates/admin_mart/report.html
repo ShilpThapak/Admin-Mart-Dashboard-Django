@@ -1,5 +1,72 @@
 {% extends 'admin_mart/layout.html' %}
 
 {% block body %}
-    <h2 class="p-3">Report an Incident</h2>
+    <div class="p-3">
+        <h2> Report an Incident </h2>
+    
+        <form action="{% url 'report' %}" method='POST'>
+            {% csrf_token %}
+            <label for="location">Location:</label>
+            <select id="location" name="location" class="form-control">
+                <option value="Corporate Headoffice">Corporate Headoffice</option>
+                <option value="Operations Department">Operations Department</option>
+                <option value="Work Station">Work Station</option>
+                <option value="Marketing Division">Marketing Division</option>
+            </select>
+
+            <br>
+            <label for="department">Department:</label>
+            <textarea class="form-control" rows="5" name="department"></textarea>
+            
+            <br>
+            <label for="datetime">Date and Time of Incident:</label>
+            <input type="datetime-local" class="form-control" name="datetime">
+
+            <br>
+            <label for="incident_location">Incident Location: </label>
+            <textarea class="form-control" rows="5" name="incident_location"></textarea>
+
+            <br>
+            <label for="severity">Inital Severity:</label>
+            <select id="severity" name="severity" class="form-control">
+                <option value="Mild">Mild</option>
+                <option value="Moderate">Moderate</option>
+                <option value="Severe">Severe</option>
+                <option value="Fatal">Fatal</option>
+            </select>
+
+            <br>
+            <label for="cause">Suspected Cause:</label>
+            <textarea class="form-control" rows="5" name="cause"></textarea>
+
+            <br>
+            <label for="action_taken">Immediate Action Taken:</label>
+            <textarea class="form-control" rows="5" name="action"></textarea>
+
+            <br>
+            <label for="sub_incident_type">Sub incident Type:</label>
+            <div class="checkbox">
+                <label><input type="checkbox" name="Environmental Incident"> Environmental Incident </label>
+            </div>
+            <div class="checkbox">
+                <label><input type="checkbox" name="Injury"> Injury/Illness </label>
+            </div>
+            <div class="checkbox">
+                <label><input type="checkbox" name="Property Damage"> Property Damage </label>
+            </div>
+            <div class="checkbox">
+                <label><input type="checkbox" name="Vehicle"> Vehicle </label>
+            </div>
+
+            <br>
+            <p>Reported By: {{user.username}} </p>
+            <input type="hidden" value="{{ user.id }}" name="user_id">
+
+            <br>
+            <input type="submit" class="btn btn-primary" name="button" value ="Send">
+            <input type="submit" class="btn btn-primary" name="button" value="Save for Later">
+        
+        </form>
+    </div>
+    
 {% endblock %}

@@ -2,12 +2,14 @@ from django.db import models
 # from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import User
 from django.db.models.deletion import CASCADE
+from django.contrib.postgres.fields import ArrayField
+
 
 LOCATION_CHOICES = (
-    ('CH', 'Corporate Headpffice'),
-    ('OD', 'Operations Department'),
-    ('WS', 'Work Station'),
-    ('MD', 'Marketing Division'),
+    ('Corporate Headoffice', 'Corporate Headpffice'),
+    ('Operations Department', 'Operations Department'),
+    ('Work Station', 'Work Station'),
+    ('Marketing Division', 'Marketing Division'),
 )
 
 INITIAL_SEVERITY_CHOICES = (
@@ -32,7 +34,7 @@ class Incident(models.Model):
     initial_severity = models.CharField(max_length=10, choices=INITIAL_SEVERITY_CHOICES)
     suspected_cause = models.TextField()
     immediate_action_taken = models.TextField()
-    sub_incident_types = models.CharField(max_length=100, choices=SUB_INCIDENT_CHOICES)
+    sub_incident_types = ArrayField(ArrayField(models.CharField(max_length=100, choices=SUB_INCIDENT_CHOICES)))
     reported_by = models.ForeignKey(User, on_delete=CASCADE)
     saved = models.BooleanField()
 
