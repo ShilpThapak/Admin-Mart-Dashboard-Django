@@ -63,7 +63,7 @@ def register_view(request):
         return render(request, "admin_mart/register.html")
 
 
-@login_required
+@login_required(login_url='/login')
 def report_view(request):
     if request.method == 'POST':
         location = request.POST['location']
@@ -111,11 +111,11 @@ def report_view(request):
     return render(request, "admin_mart/report.html")
 
 
-@login_required
+@login_required(login_url='/login')
 def saved_view(request):
     return render(request, "admin_mart/saved.html")
 
 
-@login_required
+@login_required(login_url='/login')
 def sent_view(request):
     return render(request, "admin_mart/sent.html")
